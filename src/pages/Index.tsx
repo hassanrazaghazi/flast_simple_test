@@ -1,13 +1,35 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import { useState, useCallback } from "react";
+import Loader from "@/components/Loader";
+import Navbar from "@/components/Navbar";
+import HeroSection from "@/components/HeroSection";
+import SkillsSection from "@/components/SkillsSection";
+import ProjectsSection from "@/components/ProjectsSection";
+import BlogSection from "@/components/BlogSection";
+import SocialsSection from "@/components/SocialsSection";
+import ScrollProgress from "@/components/ScrollProgress";
 
 const Index = () => {
+  const [loading, setLoading] = useState(true);
+
+  const handleLoaderComplete = useCallback(() => {
+    setLoading(false);
+  }, []);
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background">
-      <div className="text-center">
-        <h1 className="mb-4 text-4xl font-bold">Welcome to Your Blank App</h1>
-        <p className="text-xl text-muted-foreground">Start building your amazing project here!</p>
+    <>
+      {loading && <Loader onComplete={handleLoaderComplete} />}
+      <div className={loading ? "opacity-0" : "opacity-100"}>
+        <ScrollProgress />
+        <Navbar />
+        <main>
+          <HeroSection />
+          <SkillsSection />
+          <ProjectsSection />
+          <BlogSection />
+          <SocialsSection />
+        </main>
       </div>
-    </div>
+    </>
   );
 };
 
